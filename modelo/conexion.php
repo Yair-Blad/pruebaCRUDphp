@@ -1,4 +1,4 @@
 <?php
-    $conexion = new mysqli("localhost", "root", "", "prueba_php", "");
+    $conexion = new mysqli("localhost", "root", "yairpatiño", "prueba_php", "3306");
     $conexion -> set_charset("utf8");
 ?>

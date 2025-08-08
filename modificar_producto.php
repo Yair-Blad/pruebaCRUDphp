@@ -15,7 +15,9 @@ include "modelo/conexion.php";
 <body>
     <form class="col-4 p-3 m-auto" method="POST">
             <h5 class="text-center alert alert-secondary">Modificar de producto</h5>
+            <input type="hidden" name="id" value="<?= $_GET["id"]?>">
             <?php
+            include "controlador/modificar_producto.php";
             while($datos=$sql->fetch_object()){?>
                 <div class="mb-1">
                 <label for="exampleInputEmail1" class="form-label">Producto</label>
