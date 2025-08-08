@@ -10,28 +10,38 @@
 </head>
 
 <body>
+    <script>
+        function eliminar(){
+            var respuesta = confirm("Estas seguro que deseas eliminar?");
+            return respuesta;
+        }
+    </script>
+    <?php
+    include "modelo/conexion.php";
+    include "controlador/eliminar_productos.php";
+    ?>
     <div class="containder-fluid row">
-        <form class="col-4">
-            <h3 class="text-center p-3">Registro de personas</h3>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Nombre</label>
+        <form class="col-4 p-3" method="POST">
+            <h5 class="text-center alert alert-secondary">Registro de producto</h5>
+            <?php
+                
+                include "controlador/registro_producto.php";
+            ?>
+            <div class="mb-1">
+                <label for="exampleInputEmail1" class="form-label">Producto</label>
                 <input type="text" class="form-control" name="nombre">
             </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Apellido</label>
-                <input type="text" class="form-control" name="apellido">
+            <div class="mb-1">
+                <label for="exampleInputEmail1" class="form-label">Precio</label>
+                <input type="text" class="form-control" name="precio">
             </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">DNI</label>
-                <input type="text" class="form-control" name="DNI">
+            <div class="mb-1">
+                <label for="exampleInputEmail1" class="form-label">Cantidad</label>
+                <input type="text" class="form-control" name="cantidad">
             </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Fecha de Nacimiento</label>
-                <input type="date" class="form-control" name="fecha">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Correo</label>
-                <input type="text" class="form-control" name="correo">
+            <div class="mb-1">
+                <label for="exampleInputEmail1" class="form-label">Descripccion</label>
+                <input type="text" class="form-control" name="descripcion">
             </div>
             <button type="submit" class="btn btn-primary" name="btnregistrar" value="ok">Registrar</button>
         </form>
@@ -41,29 +51,26 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombres</th>
-                        <th scope="col">Apellidos</th>
-                        <th scope="col">DNI</th>
-                        <th scope="col">Fecha de Nacmiento</th>
-                        <th scope="col">Correo</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Descripcion</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                         include "modelo/conexion.php";
-                        $sql=$conexion->query("select * from persona");
+                        $sql=$conexion->query("select * from productos");
                         while($datos= $sql->fetch_object()){?>
                             <tr>
-                                <td><?= $datos-> id_persona ?></td>
+                                <td><?= $datos-> id ?></td>
                                 <td><?= $datos-> nombre ?></td>
-                                <td><?= $datos-> apellido ?></td>
-                                <td><?= $datos-> dni ?></td>
-                                <td><?= $datos-> fecha_nac ?></td>
-                                <td><?= $datos-> correo ?></td>
-                                
+                                <td><?= $datos-> precio ?></td>
+                                <td><?= $datos-> cantidad ?></td>
+                                <td><?= $datos-> descripcion ?></td>
                                 <td>
-                                    <a href="" class="btn btn-small btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                    <a href="modificar_producto.php?id=<?=$datos->id?>" class="btn btn-small btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a onclick="return eliminar()" href="index.php?id=<?=$datos->id?>" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php }
